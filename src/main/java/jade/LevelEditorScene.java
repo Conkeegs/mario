@@ -165,8 +165,7 @@ public class LevelEditorScene extends Scene {
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
 
-        glBindVertexArray(0);
-
-        glUseProgram(0);
+        glBindVertexArray(0); // bind "nothing"
+        glUseProgram(0); // use "nothing"
     }
 }
