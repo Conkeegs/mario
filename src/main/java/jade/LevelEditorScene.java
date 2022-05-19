@@ -3,6 +3,7 @@ package jade;
 import components.SpriteRenderer;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
+import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
 
@@ -28,11 +29,17 @@ public class LevelEditorScene extends Scene {
                 float xPos = xOffset + (x * sizeX) + (padding * x);
                 float yPos = yOffset + (y * sizeY) + (padding * y);
 
-                GameObject gameObject = new GameObject("Object " + x + " " + y, new Transform(new Vector2f(xPos, yPos), new Vector2f(sizeX, sizeY)));
+                GameObject gameObject = new GameObject("Object " + x + "" + y, new Transform(new Vector2f(xPos, yPos), new Vector2f(sizeX, sizeY)));
                 gameObject.addComponent(new SpriteRenderer(new Vector4f(xPos / totalWidth, yPos / totalHeight, 1, 1)));
                 this.addGameObjectToScene(gameObject);
             }
         }
+
+        loadResources();
+    }
+
+    private void loadResources() {
+        AssetPool.getShader("assets/shaders/default.glsl");
     }
 
     @Override
