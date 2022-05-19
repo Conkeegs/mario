@@ -123,7 +123,7 @@ public class Shader {
         beingUsed = false;
     }
 
-    public void uploadMatf4(String varName, Matrix4f mat4) {
+    public void uploadMat4f(String varName, Matrix4f mat4) {
         int varLocation = glGetUniformLocation(shaderProgramID, varName);
         use();
         FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
@@ -131,7 +131,7 @@ public class Shader {
         glUniformMatrix4fv(varLocation, false, matrixBuffer);
     }
 
-    public void uploadMatf3(String varName, Matrix3f mat3) {
+    public void uploadMat3f(String varName, Matrix3f mat3) {
         int varLocation = glGetUniformLocation(shaderProgramID, varName);
         use();
         FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(9);
@@ -157,13 +157,13 @@ public class Shader {
         glUniform2f(varLocation, vec2f.x, vec2f.y);
     }
 
-    public void uplaodFloat(String varName, float value) {
+    public void uploadFloat(String varName, float value) {
         int varLocation = glGetUniformLocation(shaderProgramID, varName);
         use();
         glUniform1f(varLocation, value);
     }
 
-    public void uplaodInt(String varName, int value) {
+    public void uploadInt(String varName, int value) {
         int varLocation = glGetUniformLocation(shaderProgramID, varName);
         use();
         glUniform1i(varLocation, value);

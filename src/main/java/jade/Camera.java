@@ -33,7 +33,7 @@ public class Camera {
             cameraUp
         );
 
-        return viewMatrix;
+        return this.viewMatrix;
     }
 
     public Matrix4f getProjectionMatrix() {
