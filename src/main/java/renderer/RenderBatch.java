@@ -107,9 +107,22 @@ public class RenderBatch {
     }
 
     public void render() {
-        // for now, we will re-buffer all data every frame
-        glBindBuffer(GL_ARRAY_BUFFER, vboID);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
+        boolean rebufferData = false;
+
+        for (int i = 0; i < numberSprites; i++) {
+            SpriteRenderer spriteRenderer = sprites[i];
+
+            if (spriteRenderer.isDirty()) {
+                loadVertexProperties(i);
+                spriteRenderer.setClean();
+                rebufferData = true;
+            }
+        }
+
+        if (rebufferData) {
+            glBindBuffer(GL_ARRAY_BUFFER, vboID);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
+        }
 
         // use shader
         shader.use();

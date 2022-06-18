@@ -8,6 +8,8 @@ import org.joml.Vector4f;
 import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
+    private GameObject gameObject1;
+    private Spritesheet sprites;
 
     public LevelEditorScene() {
 
@@ -19,9 +21,9 @@ public class LevelEditorScene extends Scene {
 
         this.camera = new Camera(new Vector2f(-250, 0));
 
-        Spritesheet sprites = AssetPool.getSpriteSheet("assets/images/spritesheet.png");
+        sprites = AssetPool.getSpriteSheet("assets/images/spritesheet.png");
 
-        GameObject gameObject1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
+        gameObject1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
         gameObject1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
         this.addGameObjectToScene(gameObject1);
 
@@ -38,8 +40,25 @@ public class LevelEditorScene extends Scene {
         );
     }
 
+    private int spriteIndex = 0;
+    private float spriteFlipTime = 0.2f;
+    private float spriteFlipTimeLeft = 0.0f;
+
     @Override
     public void update(float dt) {
+        spriteFlipTimeLeft -= dt;
+
+        if (spriteFlipTimeLeft <= 0) {
+            spriteFlipTimeLeft = spriteFlipTime;
+            spriteIndex++;
+
+            if (spriteIndex > 4) {
+                spriteIndex = 0;
+            }
+
+            gameObject1.getComponent(SpriteRenderer.class).setSprite(sprites.getSprite(spriteIndex));
+        }
+
         for (GameObject gameObject : this.gameObjects) {
             gameObject.update(dt);
         }
