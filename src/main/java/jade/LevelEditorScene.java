@@ -23,12 +23,12 @@ public class LevelEditorScene extends Scene {
 
         sprites = AssetPool.getSpriteSheet("assets/images/spritesheet.png");
 
-        gameObject1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
-        gameObject1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
+        gameObject1 = new GameObject("Object 1", new Transform(new Vector2f(200, 100), new Vector2f(256, 256)), 2);
+        gameObject1.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/blendImage1.png"))));
         this.addGameObjectToScene(gameObject1);
 
-        GameObject gameObject2 = new GameObject("Object 2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)));
-        gameObject2.addComponent(new SpriteRenderer(sprites.getSprite(15)));
+        GameObject gameObject2 = new GameObject("Object 2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)), 2);
+        gameObject2.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/blendImage2.png"))));
         this.addGameObjectToScene(gameObject2);
     }
 
@@ -40,25 +40,8 @@ public class LevelEditorScene extends Scene {
         );
     }
 
-    private int spriteIndex = 0;
-    private float spriteFlipTime = 0.2f;
-    private float spriteFlipTimeLeft = 0.0f;
-
     @Override
     public void update(float dt) {
-        spriteFlipTimeLeft -= dt;
-
-        if (spriteFlipTimeLeft <= 0) {
-            spriteFlipTimeLeft = spriteFlipTime;
-            spriteIndex++;
-
-            if (spriteIndex > 4) {
-                spriteIndex = 0;
-            }
-
-            gameObject1.getComponent(SpriteRenderer.class).setSprite(sprites.getSprite(spriteIndex));
-        }
-
         for (GameObject gameObject : this.gameObjects) {
             gameObject.update(dt);
         }

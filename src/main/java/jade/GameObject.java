@@ -6,18 +6,22 @@ import java.util.List;
 public class GameObject {
     private String name;
     private List<Component> components;
+    private int zIndex;
+
     public Transform transform;
 
     public GameObject(String name) {
         this.name = name;
         this.components = new ArrayList<>();
         this.transform = new Transform();
+        this.zIndex = 0;
     }
 
-    public GameObject(String name, Transform transform) {
+    public GameObject(String name, Transform transform, int zIndex) {
         this.name = name;
         this.components = new ArrayList<>();
         this.transform = transform;
+        this.zIndex = zIndex;
     }
 
     public <T extends Component> T getComponent(Class<T> componentClass) {
@@ -60,5 +64,9 @@ public class GameObject {
         for (Component component : components) {
             component.start();
         }
+    }
+
+    public int zIndex() {
+        return this.zIndex;
     }
 }
